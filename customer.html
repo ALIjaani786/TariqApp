@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Customers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { padding: 25px 30px; background: #f4f6fb; }
+
+  .page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 25px; flex-wrap: wrap; gap: 10px;
+  }
+  .page-header h1 { font-size: 24px; color: #1e2235; }
+  .page-header p { color: #7a7f9e; font-size: 14px; margin-top: 4px; }
+  .add-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+    border: none; padding: 10px 20px; border-radius: 8px;
+    cursor: pointer; font-weight: 600; transition: 0.2s;
+  }
+  .add-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
+
+  .table-card {
+    background: #fff; border-radius: 12px; padding: 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  table th {
+    text-align: left; padding: 12px 14px; font-size: 13px;
+    text-transform: uppercase; color: #7a7f9e;
+    border-bottom: 2px solid #eef0f6; letter-spacing: 0.5px;
+  }
+  table td { padding: 14px; border-bottom: 1px solid #f1f3f8; font-size: 14px; color: #333; }
+  table tr:hover td { background: #fafbff; }
+  .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .badge.active { background: #d5f5e3; color: #27ae60; }
+  .badge.inactive { background: #fadbd8; color: #c0392b; }
+  .action-btn {
+    border: none; padding: 6px 12px; border-radius: 6px;
+    cursor: pointer; font-size: 12px; font-weight: 600; margin-right: 5px;
+  }
+  .action-btn.edit { background: #eaf2ff; color: #2980b9; }
+  .action-btn.delete { background: #fdecea; color: #c0392b; }
+  .action-btn:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <h1>Customers</h1>
+    <p>Manage all your customers here</p>
+  </div>
+  <button class="add-btn">+ Add Customer</button>
+</div>
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Email</th><th>Phone</th>
+        <th>Status</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>#C001</td><td>Ali Khan</td><td>ali@example.com</td>
+        <td>0300-1234567</td>
+        <td><span class="badge active">Active</span></td>
+        <td>
+          <button class="action-btn edit">Edit</button>
+          <button class="action-btn delete">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>#C002</td><td>Sara Ahmed</td><td>sara@example.com</td>
+        <td>0301-7654321</td>
+        <td><span class="badge active">Active</span></td>
+        <td>
+          <button class="action-btn edit">Edit</button>
+          <button class="action-btn delete">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>#C003</td><td>Bilal Raza</td><td>bilal@example.com</td>
+        <td>0302-1112223</td>
+        <td><span class="badge inactive">Inactive</span></td>
+        <td>
+          <button class="action-btn edit">Edit</button>
+          <button class="action-btn delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
