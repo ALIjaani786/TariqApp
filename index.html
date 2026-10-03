@@ -1,12 +1,581 @@
-<html>
-  <title>Mian Public</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Manager Dashboard</title>
+    <!-- Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Google Font: Poppins for a clean, modern look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ----- RESET & GLOBAL ----- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
 
-  <head> </head>
+      body {
+        background: #f2f5f9; /* Soft grey-blue background */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 1rem 0.8rem 2rem;
+      }
+
+      /* Main wrapper – acts like a mobile app container */
+      .dashboard {
+        max-width: 520px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      /* ----- 1. TOP NEWS BAR (Marquee style) ----- */
+      .news-bar {
+        background: #f39c12; /* Orange */
+        border-radius: 12px;
+        padding: 0.6rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 500;
+        box-shadow: 0 4px 10px rgba(243, 156, 18, 0.2);
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .news-bar .badge {
+        background: #ffffff;
+        color: #f39c12;
+        padding: 0.15rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        flex-shrink: 0;
+      }
+
+      .news-bar .badge i {
+        font-size: 0.6rem;
+      }
+
+      .news-bar .marquee {
+        display: flex;
+        gap: 1.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .news-bar .marquee span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        flex-shrink: 0;
+      }
+
+      /* ----- 2. HEADER (Blue box with School Manager + Logout) ----- */
+      .header {
+        background: #2c5f9e; /* Deep blue */
+        border-radius: 24px;
+        padding: 1.4rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        color: #ffffff;
+        box-shadow: 0 10px 20px -5px rgba(44, 95, 158, 0.4);
+        position: relative;
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .header-title i {
+        font-size: 1.5rem;
+        opacity: 0.9;
+      }
+
+      .logout-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #ffffff;
+        padding: 0.4rem 1rem;
+        border-radius: 40px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        font-weight: 400;
+        margin-left: 0.2rem;
+      }
+
+      /* ----- 3. WELCOME BANNER (Yellow) ----- */
+      .welcome-banner {
+        background: #fdeaa8; /* Soft yellow */
+        border-radius: 18px;
+        padding: 0.9rem 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: #7a5d00;
+        font-weight: 500;
+        font-size: 0.95rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+      }
+
+      .welcome-banner i {
+        font-size: 1.6rem;
+        color: #e6a800;
+      }
+
+      .welcome-banner span {
+        color: #a07e00;
+        font-weight: 400;
+      }
+
+      /* ----- 4. STATS GRID (2 columns) ----- */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem;
+      }
+
+      .stat-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 1.1rem 0.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+        border: 1px solid #edf2f7;
+        transition: transform 0.15s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .stat-icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+      }
+
+      /* Icon colors matching screenshot */
+      .stat-card:nth-child(1) .stat-icon {
+        color: #3b82f6;
+      } /* blue users */
+      .stat-card:nth-child(2) .stat-icon {
+        color: #64748b;
+      } /* grey building */
+      .stat-card:nth-child(3) .stat-icon {
+        color: #22c55e;
+      } /* green check */
+      .stat-card:nth-child(4) .stat-icon {
+        color: #3b82f6;
+      } /* blue chart */
+
+      .stat-number {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.2;
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        font-weight: 400;
+      }
+
+      /* Additional small text inside stat cards (Present/Absent/Leave) */
+      .stat-extra {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 0.5rem;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        padding-top: 0.4rem;
+        border-top: 1px solid #f1f5f9;
+      }
+
+      .stat-extra span {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+      }
+
+      /* ----- 5. FINANCIAL CARDS (3 columns) ----- */
+      .finance-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.9rem;
+      }
+
+      .finance-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 1rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+        border: 1px solid #edf2f7;
+        transition: transform 0.15s;
+      }
+
+      .finance-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .finance-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+      }
+
+      /* Finance icon colors */
+      .finance-card:nth-child(1) .finance-icon {
+        color: #f59e0b;
+      } /* yellow wallet */
+      .finance-card:nth-child(2) .finance-icon {
+        color: #ef4444;
+      } /* red clock */
+      .finance-card:nth-child(3) .finance-icon {
+        color: #10b981;
+      } /* green cash */
+
+      .finance-number {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.2;
+      }
+
+      .finance-label {
+        font-size: 0.7rem;
+        color: #64748b;
+        font-weight: 400;
+      }
+
+      /* ----- 6. TILE MENU (List style like previous) ----- */
+      .tile-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      .tile {
+        background: #ffffff;
+        border-radius: 1.6rem;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+        display: flex;
+        align-items: center;
+        padding: 0.9rem 1.2rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: 1px solid #edf2f7;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+      }
+
+      .tile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.08);
+      }
+
+      .tile:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .tile-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #ffffff;
+        flex-shrink: 0;
+        margin-right: 1rem;
+      }
+
+      /* Tile icon colors (matching previous example) */
+      .tile:nth-child(1) .tile-icon {
+        background: #5b4b8a;
+      } /* purple */
+      .tile:nth-child(2) .tile-icon {
+        background: #2ecc71;
+      } /* green */
+
+      .tile-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tile-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1e293b;
+        margin-bottom: 0.15rem;
+        line-height: 1.3;
+      }
+
+      .tile-desc {
+        font-size: 0.75rem;
+        color: #64748b;
+        font-weight: 400;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2rem 0.4rem;
+      }
+
+      .tile-desc span {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .tile-desc span:not(:last-child)::after {
+        content: "|";
+        color: #cbd5e1;
+        margin-left: 0.4rem;
+        font-weight: 300;
+        font-size: 0.7rem;
+      }
+
+      .tile-arrow {
+        font-size: 1.2rem;
+        color: #94a3b8;
+        margin-left: 0.8rem;
+        flex-shrink: 0;
+        transition: transform 0.2s;
+      }
+
+      .tile:hover .tile-arrow {
+        transform: translateX(3px);
+        color: #475569;
+      }
+
+      /* ----- RESPONSIVE ADJUSTMENTS ----- */
+      @media (max-width: 480px) {
+        .dashboard {
+          gap: 0.8rem;
+        }
+
+        .header-title {
+          font-size: 1.4rem;
+        }
+        .header-title i {
+          font-size: 1.3rem;
+        }
+        .header-sub {
+          font-size: 0.8rem;
+        }
+
+        .stat-number {
+          font-size: 1.6rem;
+        }
+        .finance-number {
+          font-size: 1.2rem;
+        }
+
+        .tile {
+          padding: 0.8rem 1rem;
+          border-radius: 1.4rem;
+        }
+        .tile-icon {
+          width: 48px;
+          height: 48px;
+          font-size: 1.3rem;
+          border-radius: 14px;
+        }
+        .tile-title {
+          font-size: 0.95rem;
+        }
+        .tile-desc {
+          font-size: 0.7rem;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.7rem;
+        }
+        .finance-grid {
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 0.6rem;
+        }
+        .finance-number {
+          font-size: 1.1rem;
+        }
+        .finance-label {
+          font-size: 0.65rem;
+        }
+
+        .tile-icon {
+          width: 44px;
+          height: 44px;
+          font-size: 1.2rem;
+          border-radius: 12px;
+        }
+        .tile-title {
+          font-size: 0.9rem;
+        }
+        .tile-desc {
+          font-size: 0.65rem;
+        }
+        .tile-desc span:not(:last-child)::after {
+          margin-left: 0.2rem;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <h1>All Pages</h1>
-    <a href="dashboard.html">DashBoard</a>
-  
-  </br>
-    <a href="sre.html">FAaaah</a>
+    <div class="dashboard">
+      <!-- 1. TOP NEWS BAR -->
+      <div class="news-bar">
+        <div class="badge"><i class="fas fa-bolt"></i> NEWS</div>
+        <div class="marquee">
+          <span
+            ><i class="fas fa-calendar-alt"></i> پبلک ہولی ڈے 14 اگست بروز
+            جمعرات</span
+          >
+          <span
+            ><i class="fas fa-clock"></i> Fee submission deadline: 10th of every
+            month</span
+          >
+        </div>
+      </div>
+
+      <!-- 2. HEADER / BLUE BOX -->
+      <div class="header">
+        <div class="header-top">
+          <div class="header-title">
+            <i class="fas fa-school"></i> My First App
+          </div>
+          <div class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </div>
+        </div>
+        <div class="header-sub">Welcome, Ali Hassan!</div>
+      </div>
+
+      <!-- 3. WELCOME BANNER (YELLOW) -->
+      <div class="welcome-banner">
+        <i class="fas fa-smile-wink"></i>
+        <div>
+          Welcome back, <strong>Ali Hassan!</strong><br />
+          <span
+            >Manage students, attendance, fees, syllabus & notifications</span
+          >
+        </div>
+      </div>
+
+      <!-- 6. TILE MENU (Student & Attendance) -->
+      <div class="tile-menu">
+        <!-- Student Management -->
+        <a href="customer.html" class="tile" aria-label="Customers Management">
+          <div class="tile-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="tile-content">
+            <div class="tile-title">Customers</div>
+            <div class="tile-desc">
+              <span>Add, edit, delete customers</span>
+              <span>View profiles</span>
+            </div>
+          </div>
+          <div class="tile-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <!-- Attendance Management -->
+        <a href="employee.html" class="tile" aria-label="Employees Management">
+          <div class="tile-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="tile-content">
+            <div class="tile-title">Employees Management</div>
+            <div class="tile-desc">
+              <span>Add, edit, delete customers</span>
+              <span>View reports</span>
+            </div>
+          </div>
+          <div class="tile-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <!-- Attendance Management -->
+        <a href="master.html" class="tile" aria-label="Master Management">
+          <div class="tile-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="tile-content">
+            <div class="tile-title">Master Management</div>
+            <div class="tile-desc">
+              <span>Add, edit, delete customers</span>
+              <span>View reports</span>
+            </div>
+          </div>
+          <div class="tile-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      </div>
+    </div>
   </body>
 </html>
