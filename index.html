@@ -1,170 +1,302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login & Signup</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-  body {
-    min-height: 100vh; display: flex; justify-content: center; align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2); padding: 20px;
-  }
-  .container {
-    background: #fff; width: 100%; max-width: 400px; border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2); overflow: hidden;
-  }
-  .tabs { display: flex; background: #f4f4f4; }
-  .tabs button {
-    flex: 1; padding: 18px; border: none; background: transparent;
-    font-size: 16px; font-weight: 600; color: #777; cursor: pointer; transition: 0.3s;
-  }
-  .tabs button.active { background: #fff; color: #667eea; border-bottom: 3px solid #667eea; }
-  form { padding: 30px 25px; display: none; }
-  form.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  form h2 { text-align: center; margin-bottom: 25px; color: #333; }
-  .input-group { margin-bottom: 18px; }
-  .input-group input {
-    width: 100%; padding: 14px 15px; border: 2px solid #e0e0e0;
-    border-radius: 8px; font-size: 15px; outline: none; transition: 0.3s;
-  }
-  .input-group input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-  .btn {
-    width: 100%; padding: 14px; border: none; border-radius: 8px;
-    background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
-    font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px;
-  }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
-  .message { text-align: center; margin-top: 15px; font-size: 14px; min-height: 20px; font-weight: 500; }
-  .message.success { color: #2ecc71; }
-  .message.error { color: #e74c3c; }
-  .hint {
-    text-align: center; font-size: 12px; color: #999; margin-top: 12px;
-    background: #f7f8fc; padding: 8px; border-radius: 6px;
-  }
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Signup</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 20px;
+      }
+      .container {
+        background: #fff;
+        width: 100%;
+        max-width: 400px;
+        border-radius: 15px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+      .tabs {
+        display: flex;
+        background: #f4f4f4;
+      }
+      .tabs button {
+        flex: 1;
+        padding: 18px;
+        border: none;
+        background: transparent;
+        font-size: 16px;
+        font-weight: 600;
+        color: #777;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .tabs button.active {
+        background: #fff;
+        color: #667eea;
+        border-bottom: 3px solid #667eea;
+      }
+      form {
+        padding: 30px 25px;
+        display: none;
+      }
+      form.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      form h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+      .input-group {
+        margin-bottom: 18px;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 14px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s;
+      }
+      .input-group input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+      .message {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+        min-height: 20px;
+        font-weight: 500;
+      }
+      .message.success {
+        color: #2ecc71;
+      }
+      .message.error {
+        color: #e74c3c;
+      }
+      .hint {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        margin-top: 12px;
+        background: #f7f8fc;
+        padding: 8px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="tabs">
+        <button id="loginTab" class="active" onclick="showForm('login')">
+          Login
+        </button>
+        <button id="signupTab" onclick="showForm('signup')">Signup</button>
+      </div>
 
-<div class="container">
-  <div class="tabs">
-    <button id="loginTab" class="active" onclick="showForm('login')">Login</button>
-    <button id="signupTab" onclick="showForm('signup')">Signup</button>
-  </div>
+      <form id="loginForm" class="active" onsubmit="return handleLogin(event);">
+        <h2>vvvvv</h2>
+        <div class="input-group">
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <p class="message" id="loginMsg"></p>
+        <p class="hint">
+          Demo: Username = <b>Abc</b> | Password = <b>123456</b>
+        </p>
+      </form>
 
-  <form id="loginForm" class="active" onsubmit="return handleLogin(event)">
-    <h2>Welcome Back</h2>
-    <div class="input-group">
-      <input type="text" id="loginUsername" placeholder="Username" required>
+      <form id="signupForm" onsubmit="return handleSignup(event);">
+        <h2>Create Account</h2>
+        <div class="input-group">
+          <input type="text" id="signupName" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <input
+            type="text"
+            id="signupUsername"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="signupPassword"
+            placeholder="Password (min 6 chars)"
+            required
+            minlength="6"
+          />
+        </div>
+        <button type="submit" class="btn">Signup</button>
+        <p class="message" id="signupMsg"></p>
+      </form>
     </div>
-    <div class="input-group">
-      <input type="password" id="loginPassword" placeholder="Password" required>
-    </div>
-    <button type="submit" class="btn">Login</button>
-    <p class="message" id="loginMsg"></p>
-    <p class="hint">Demo: Username = <b>Abc</b> | Password = <b>123456</b></p>
-  </form>
 
-  <form id="signupForm" onsubmit="return handleSignup(event)">
-    <h2>Create Account</h2>
-    <div class="input-group">
-      <input type="text" id="signupName" placeholder="Full Name" required>
-    </div>
-    <div class="input-group">
-      <input type="text" id="signupUsername" placeholder="Username" required>
-    </div>
-    <div class="input-group">
-      <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" required minlength="6">
-    </div>
-    <button type="submit" class="btn">Signup</button>
-    <p class="message" id="signupMsg"></p>
-  </form>
-</div>
+    <script>
+      const DEMO_USER = { username: "Abc", password: "123456", name: "Abc" };
 
-<script>
-  const DEMO_USER = { username: 'Abc', password: '123456', name: 'Abc' };
+      // Agar pehle se logged in hai to master par bhej do
+      if (localStorage.getItem("loggedInUser")) {
+        window.location.href = "master.html";
+      }
 
-  // Agar pehle se logged in hai to master par bhej do
-  if (localStorage.getItem('loggedInUser')) {
-    window.location.href = 'master.html';
-  }
+      function showForm(formType) {
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+        const loginTab = document.getElementById("loginTab");
+        const signupTab = document.getElementById("signupTab");
 
-  function showForm(formType) {
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const loginTab = document.getElementById('loginTab');
-    const signupTab = document.getElementById('signupTab');
+        if (formType === "login") {
+          loginForm.classList.add("active");
+          signupForm.classList.remove("active");
+          loginTab.classList.add("active");
+          signupTab.classList.remove("active");
+        } else {
+          signupForm.classList.add("active");
+          loginForm.classList.remove("active");
+          signupTab.classList.add("active");
+          loginTab.classList.remove("active");
+        }
+      }
 
-    if (formType === 'login') {
-      loginForm.classList.add('active'); signupForm.classList.remove('active');
-      loginTab.classList.add('active'); signupTab.classList.remove('active');
-    } else {
-      signupForm.classList.add('active'); loginForm.classList.remove('active');
-      signupTab.classList.add('active'); loginTab.classList.remove('active');
-    }
-  }
+      function getUsers() {
+        return JSON.parse(localStorage.getItem("users")) || [];
+      }
+      function saveUsers(users) {
+        localStorage.setItem("users", JSON.stringify(users));
+      }
 
-  function getUsers() { return JSON.parse(localStorage.getItem('users')) || []; }
-  function saveUsers(users) { localStorage.setItem('users', JSON.stringify(users)); }
+      function showMessage(elId, text, type) {
+        const el = document.getElementById(elId);
+        el.textContent = text;
+        el.className = "message " + type;
+      }
 
-  function showMessage(elId, text, type) {
-    const el = document.getElementById(elId);
-    el.textContent = text;
-    el.className = 'message ' + type;
-  }
+      function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById("signupName").value.trim();
+        const username = document.getElementById("signupUsername").value.trim();
+        const password = document.getElementById("signupPassword").value;
 
-  function handleSignup(e) {
-    e.preventDefault();
-    const name = document.getElementById('signupName').value.trim();
-    const username = document.getElementById('signupUsername').value.trim();
-    const password = document.getElementById('signupPassword').value;
+        if (username.toLowerCase() === DEMO_USER.username.toLowerCase()) {
+          showMessage("signupMsg", "Yeh username reserved hai!", "error");
+          return false;
+        }
 
-    if (username.toLowerCase() === DEMO_USER.username.toLowerCase()) {
-      showMessage('signupMsg', 'Yeh username reserved hai!', 'error');
-      return false;
-    }
+        const users = getUsers();
+        if (
+          users.some((u) => u.username.toLowerCase() === username.toLowerCase())
+        ) {
+          showMessage(
+            "signupMsg",
+            "Yeh username pehle se mojood hai!",
+            "error",
+          );
+          return false;
+        }
 
-    const users = getUsers();
-    if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
-      showMessage('signupMsg', 'Yeh username pehle se mojood hai!', 'error');
-      return false;
-    }
+        users.push({ name, username, password });
+        saveUsers(users);
 
-    users.push({ name, username, password });
-    saveUsers(users);
+        showMessage(
+          "signupMsg",
+          "Signup successful! Ab login karein.",
+          "success",
+        );
+        document.getElementById("signupForm").reset();
 
-    showMessage('signupMsg', 'Signup successful! Ab login karein.', 'success');
-    document.getElementById('signupForm').reset();
+        setTimeout(() => {
+          showForm("login");
+          showMessage("loginMsg", "", "");
+        }, 1500);
+        return false;
+      }
 
-    setTimeout(() => { showForm('login'); showMessage('loginMsg', '', ''); }, 1500);
-    return false;
-  }
+      function handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value;
 
-  function handleLogin(e) {
-    e.preventDefault();
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
+        let loggedUser = null;
 
-    let loggedUser = null;
+        if (
+          username === DEMO_USER.username &&
+          password === DEMO_USER.password
+        ) {
+          loggedUser = { name: DEMO_USER.name, username: DEMO_USER.username };
+        } else {
+          const found = getUsers().find(
+            (u) => u.username === username && u.password === password,
+          );
+          if (found)
+            loggedUser = { name: found.name, username: found.username };
+        }
 
-    if (username === DEMO_USER.username && password === DEMO_USER.password) {
-      loggedUser = { name: DEMO_USER.name, username: DEMO_USER.username };
-    } else {
-      const found = getUsers().find(u => u.username === username && u.password === password);
-      if (found) loggedUser = { name: found.name, username: found.username };
-    }
-
-    if (loggedUser) {
-      showMessage('loginMsg', 'Login successful!', 'success');
-      localStorage.setItem('loggedInUser', JSON.stringify(loggedUser));
-      setTimeout(() => window.location.href = 'master.html', 500);
-    } else {
-      showMessage('loginMsg', 'Ghalat username ya password!', 'error');
-    }
-    return false;
-  }
-</script>
-
-</body>
+        if (loggedUser) {
+          showMessage("loginMsg", "Login successful!", "success");
+          localStorage.setItem("loggedInUser", JSON.stringify(loggedUser));
+          setTimeout(() => (window.location.href = "master.html"), 500);
+        } else {
+          showMessage("loginMsg", "Ghalat username ya password!", "error");
+        }
+        return false;
+      }
+    </script>
+  </body>
 </html>
