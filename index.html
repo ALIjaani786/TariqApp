@@ -1,143 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Course Registration Form</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 100%;
-        min-height: 100vh;
-        background: #f4f6f8;
-        font-family: Arial, sans-serif;
-      }
-
-      body {
-        padding: 2vw;
-      }
-
-      h1 {
-        text-align: center;
-        font-size: clamp(1.4rem, 4vw, 2.2rem);
-        margin-bottom: 10px;
-      }
-
-      body > p {
-        text-align: center;
-        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-        margin-bottom: 20px;
-      }
-
-      #successMsg {
-        display: none;
-        max-width: 900px;
-        margin: 0 auto 20px auto;
-        padding: 12px;
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-        border-radius: 6px;
-        text-align: center;
-        font-weight: bold;
-      }
-
-      form {
-        width: 100%;
-        background: #ffffff;
-        padding: 2vw 3vw;
-        border: 1px solid #cccccc;
-        border-radius: 8px;
-      }
-
-      fieldset {
-        border: 1px solid #999999;
-        border-radius: 6px;
-        padding: 1.5vw 2vw;
-        margin-bottom: 20px;
-      }
-
-      legend {
-        font-weight: bold;
-        padding: 0 6px;
-      }
-
-      label {
-        display: inline-block;
-        margin-bottom: 4px;
-        font-size: clamp(0.85rem, 2vw, 1rem);
-      }
-
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      input[type="number"],
-      input[type="date"],
-      select,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 12px;
-        border: 1px solid #bbbbbb;
-        border-radius: 4px;
-        font-size: clamp(0.85rem, 2vw, 1rem);
-      }
-
-      input[type="radio"],
-      input[type="checkbox"] {
-        margin-right: 6px;
-      }
-
-      input[type="submit"],
-      input[type="reset"] {
-        padding: 10px 20px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: clamp(0.85rem, 2vw, 1rem);
-      }
-
-      input[type="submit"] {
-        background: #2d6cdf;
-        color: #ffffff;
-      }
-
-      input[type="reset"] {
-        background: #dddddd;
-        color: #000000;
-      }
-
-      @media (max-width: 600px) {
-        form {
-          padding: 15px;
-        }
-
-        fieldset {
-          padding: 10px 12px;
-        }
-
-        input[type="submit"],
-        input[type="reset"] {
-          width: 100%;
-          margin-bottom: 10px;
-        }
-      }
-    </style>
   </head>
   <body>
     <h1>Course Registration Form</h1>
     <p>Please fill out the form below to register for a course.</p>
 
-    <div id="successMsg">Form submitted successfully!</div>
-
-    <form action="#" method="post" onsubmit="showMessage(event)">
+    <form action="#" method="post">
       <fieldset>
         <legend>Student Information</legend>
 
@@ -149,6 +19,7 @@
           placeholder="Enter your full name"
           required
         />
+        <br /><br />
 
         <label for="rollno">Roll Number:</label>
         <input
@@ -158,9 +29,11 @@
           placeholder="Enter your roll number"
           required
         />
+        <br /><br />
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required />
+        <br /><br />
 
         <label for="password">Password:</label>
         <input
@@ -170,13 +43,18 @@
           minlength="8"
           required
         />
+        <br /><br />
 
         <label for="age">Age:</label>
         <input type="number" id="age" name="age" min="18" max="60" />
+        <br /><br />
 
         <label for="date">Registration Date:</label>
         <input type="date" id="date" name="date" />
+        <br /><br />
       </fieldset>
+
+      <br />
 
       <fieldset>
         <legend>Course Details</legend>
@@ -199,6 +77,8 @@
           <option value="database">Database Systems</option>
         </select>
 
+        <br /><br />
+
         <label for="comments">Additional Comments:</label><br />
         <textarea
           id="comments"
@@ -208,6 +88,8 @@
           maxlength="200"
         ></textarea>
       </fieldset>
+
+      <br />
 
       <input type="checkbox" id="terms" name="terms" required />
       <label for="terms">I agree to the terms and conditions.</label>
@@ -222,13 +104,5 @@
       <input type="submit" value="Register" />
       <input type="reset" value="Clear Form" />
     </form>
-
-    <script>
-      function showMessage(event) {
-        event.preventDefault();
-        document.getElementById("successMsg").style.display = "block";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    </script>
   </body>
 </html>
